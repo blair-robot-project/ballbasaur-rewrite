@@ -4,7 +4,7 @@ testMP: true
 leftTestProfile:
     &leftTest
     '@id': leftTest
-    filename: "ballbasaurForward100InProfile.csv"
+    filename: "ballbasaurTest1.PB020.csv"
     inverted: true
     velocityOnly: true
 rightTestProfile:
