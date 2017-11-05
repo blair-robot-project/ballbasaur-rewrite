@@ -93,7 +93,7 @@ public class Robot extends IterativeRobot {
 			//Read the yaml file with SnakeYaml so we can use anchors and merge syntax.
 //			Map<?, ?> normalized = (Map<?, ?>) yaml.load(new FileReader(RESOURCES_PATH+"ballbasaur_map.yml"));
 //			Map<?, ?> normalized = (Map<?, ?>) yaml.load(new FileReader(RESOURCES_PATH + "naveen_map.yml"));
-			Map<?, ?> normalized = (Map<?, ?>) yaml.load(new FileReader(RESOURCES_PATH + "nate_map.yml"));
+			Map<?, ?> normalized = (Map<?, ?>) yaml.load(new FileReader(RESOURCES_PATH + "ballbasaur_map.yml"));
 //			Map<?, ?> normalized = (Map<?, ?>) yaml.load(new FileReader(RESOURCES_PATH + "calcifer_outreach_map.yml"));
 			YAMLMapper mapper = new YAMLMapper();
 			//Turn the Map read by SnakeYaml into a String so Jackson can read it.
@@ -101,7 +101,7 @@ public class Robot extends IterativeRobot {
 			//Use a parameter name module so we don't have to specify name for every field.
 			mapper.registerModule(new ParameterNamesModule(JsonCreator.Mode.PROPERTIES));
 			//Deserialize the map into an object.
-			robotMap = mapper.readValue(fixed, RobotMap2017.class);
+			robotMap = mapper.readValue(fixed, RobotMap.class);
 		} catch (IOException e) {
 			//This is either the map file not being in the file system OR it being improperly formatted.
 			System.out.println("Config file is bad/nonexistent!");

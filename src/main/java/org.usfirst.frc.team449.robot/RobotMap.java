@@ -89,12 +89,6 @@ public class RobotMap {
 	private final Pneumatics pneumatics;
 
 	/**
-	 * The gear handler on this robot. Can be null.
-	 */
-	@Nullable
-	private final SolenoidSimple gearHandler;
-
-	/**
 	 * The I2C port of the RIOduino plugged into this robot. Can be null.
 	 */
 	@Nullable
@@ -106,13 +100,6 @@ public class RobotMap {
 	 */
 	@Nullable
 	private final MappedDigitalInput allianceSwitch;
-
-	/**
-	 * The switch for deciding whether or not to drop the gear. Can be null if doMP is false or testMP is true, but
-	 * otherwise must have a value.
-	 */
-	@Nullable
-	private final MappedDigitalInput dropGearSwitch;
 
 	/**
 	 * The dial for selecting which side of the field the robot is on. Can be null if doMP is false or testMP is true,
@@ -220,11 +207,9 @@ public class RobotMap {
 	 * @param camera               The cameras on this robot. Can be null.
 	 * @param intake               The intake for picking up and agitating balls. Can be null.
 	 * @param pneumatics           The pneumatics on this robot. Can be null.
-	 * @param gearHandler          The gear handler on this robot. Can be null.
 	 * @param RIOduinoPort         The I2C port of the RIOduino plugged into this robot. Can be null.
 	 * @param allianceSwitch       The switch for selecting which alliance we're on. Can be null if doMP is false or
 	 *                             testMP is true, but otherwise must have a value.
-	 * @param dropGearSwitch       The switch for deciding whether or not to drop the gear. Can be null if doMP is false
 	 *                             or testMP is true, but otherwise must have a value.
 	 * @param locationDial         The dial for selecting which side of the field the robot is on. Can be null if doMP
 	 *                             is false or testMP is true, but otherwise must have a value.
@@ -263,10 +248,8 @@ public class RobotMap {
 	                    @Nullable CameraNetwork camera,
 	                    @Nullable IntakeFixedAndActuated intake,
 	                    @Nullable Pneumatics pneumatics,
-	                    @Nullable SolenoidSimple gearHandler,
 	                    @Nullable Integer RIOduinoPort,
 	                    @Nullable MappedDigitalInput allianceSwitch,
-	                    @Nullable MappedDigitalInput dropGearSwitch,
 	                    @Nullable MappedDigitalInput locationDial,
 	                    @Nullable YamlCommand boilerAuto,
 	                    @Nullable YamlCommand centerAuto,
@@ -287,11 +270,9 @@ public class RobotMap {
 		this.camera = camera;
 		this.intake = intake;
 		this.pneumatics = pneumatics;
-		this.gearHandler = gearHandler;
 		this.logger = logger;
 		this.RIOduinoPort = RIOduinoPort;
 		this.allianceSwitch = allianceSwitch;
-		this.dropGearSwitch = dropGearSwitch;
 		this.locationDial = locationDial;
 		this.boilerAuto = boilerAuto != null ? boilerAuto.getCommand() : null;
 		this.centerAuto = centerAuto != null ? centerAuto.getCommand() : null;
@@ -390,14 +371,6 @@ public class RobotMap {
 	}
 
 	/**
-	 * @return The gear handler on this robot. Can be null.
-	 */
-	@Nullable
-	public SolenoidSimple getGearHandler() {
-		return gearHandler;
-	}
-
-	/**
 	 * @return The I2C port of the RIOduino plugged into this robot. Can be null.
 	 */
 	@Nullable
@@ -412,15 +385,6 @@ public class RobotMap {
 	@Nullable
 	public MappedDigitalInput getAllianceSwitch() {
 		return allianceSwitch;
-	}
-
-	/**
-	 * @return The switch for deciding whether or not to drop the gear. Can be null if getDoMP returns false or
-	 * getTestMP returns true, but otherwise has a value.
-	 */
-	@Nullable
-	public MappedDigitalInput getDropGearSwitch() {
-		return dropGearSwitch;
 	}
 
 	/**
