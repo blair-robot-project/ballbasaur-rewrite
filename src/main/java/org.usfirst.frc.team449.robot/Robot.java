@@ -125,7 +125,6 @@ public class Robot extends IterativeRobot {
 			} else {
 				//Read the data from the input switches
 				boolean redAlliance = robotMap.getAllianceSwitch().getStatus().get(0);
-				boolean dropGear = robotMap.getDropGearSwitch().getStatus().get(0);
 				List<Boolean> tmp = robotMap.getLocationDial().getStatus();
 
 				String position;
@@ -147,11 +146,9 @@ public class Robot extends IterativeRobot {
 
 				//Log the data read from the switches
 				Logger.addEvent("redAlliance: " + redAlliance, this.getClass());
-				Logger.addEvent("dropGear: " + dropGear, this.getClass());
 				Logger.addEvent("position: " + position, this.getClass());
 
 				SmartDashboard.putString("Position", allianceString + " " + position);
-				SmartDashboard.putBoolean("DropGear", dropGear);
 
 				//Load the first profile we want to run
 				driveSubsystem.loadMotionProfile(robotMap.getLeftProfiles().get(allianceString + "_" + position),
