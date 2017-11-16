@@ -3,17 +3,11 @@ plugins {
 	id 'java'
 	id 'eclipse'
 	id 'idea'
-	id "jaci.openrio.gradle.GradleRIO" version "2017.10.30"
+	id 'jaci.openrio.gradle.GradleRIO' version "2017.1.5"
 }
 
-allprojects {
-	tasks.withType(Javadoc).all { enabled = true }
-	repositories {
-		maven {
-			url 'https://jitpack.io'
-		}
-	}
-}
+group 'org.usfirst.frc.team449.ballbasaur-rewrite'
+version '1.0'
 
 repositories {
 	mavenCentral()
@@ -23,26 +17,9 @@ repositories {
 	}
 
 	maven { url "https://plugins.gradle.org/m2/" }
-}
 
-group 'org.usfirst.frc.team449.ballbasaur-rewrite'
-version '1.0'
-
-def TEAM = 449
-def ROBOT_CLASS = "org.usfirst.frc.team449.robot.Robot"
-
-// Define my targets (RoboRIO) and artifacts (deployable files)
-// This is added by GradleRIO's backing project EmbeddedTools.
-deploy {
-	targets {
-		target("roborio", jaci.openrio.gradle.frc.RoboRIO) {
-			team = TEAM
-		}
-	}
-	artifacts {
-		artifact('frcJava', jaci.openrio.gradle.frc.FRCJavaArtifact) {
-			targets << "roborio"
-		}
+	maven {
+		url 'https://jitpack.io'
 	}
 }
 
@@ -51,17 +28,12 @@ wpi {
 	ntcoreVersion = "3.1.7"         // The NetworkTables Core version to use.
 	opencvVersion = "3.1.0"         // The OpenCV version to use.
 	cscoreVersion = "1.0.2"         // The CSCore version to use.
-	ctreVersion = "4.4.1.14"    // The CTRE Toolsuite (Talon SRX) version to use.
+	talonSrxVersion = "4.4.1.14"    // The CTRE Toolsuite (Talon SRX) version to use.
 	navxVersion = "3.0.331"         // The NavX-MXP library version to use.
-
-	smartDashboardVersion = '...'
-	javaInstallerVersion = '...'
-
-	toolchainVersion = '...'
 }
 
 dependencies {
-	compile 'com.github.blair-robot-project:robot2017:jitpack-SNAPSHOT'
+	compile 'com.github.blair-robot-project:449-central-repo:v6.1.0'
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0.pr3'
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
@@ -73,17 +45,27 @@ dependencies {
 	compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-parameter-names', version: '2.9.0.pr3'
 	compile 'org.jetbrains:annotations:13.0'
 	compile wpilib()
-	compile ctre()
+	compile talonSrx()
 	compile navx()
 }
 
-/* CopyResources stuff */
+/* GradleRIO stuff */
 remotes {
 	rio {
 		host = 'roboRIO-449-frc.local'
 		user = 'lvuser'
 		knownHosts = allowAnyHosts
 	}
+}
+
+frc {
+	team = '449'
+	robotClass = "org.usfirst.frc.team449.robot.Robot"
+}
+
+def robotManifest = {
+	attributes 'Main-Class': 'edu.wpi.first.wpilibj.RobotBase'
+	attributes 'Robot-Class': frc.robotClass
 }
 
 task('copyResources') {
@@ -100,12 +82,9 @@ task('copyResources') {
 }
 
 /* Generic artifact gen stuff */
-// Java only. Setup your Jar File.
 jar {
-	// Compile a 'fat jar' (libraries included)
 	from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-	// Include your Manifest. Arguments are your Robot Main Class.
-	manifest jaci.openrio.gradle.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
+	manifest robotManifest
 }
 
 task genJavadoc(type: Jar, dependsOn: javadoc) {
@@ -120,7 +99,7 @@ task deleteDocs(type: Delete){
 
 task copyDocs(type: Copy, dependsOn: [genJavadoc, deleteDocs]){
 	from 'build/docs/javadoc'
-	into '../docs'
+	into 'docs'
 }
 
 artifacts {
