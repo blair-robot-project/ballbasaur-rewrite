@@ -59,24 +59,6 @@ public class RobotMap {
 	private final Command defaultDriveCommand;
 
 	/**
-	 * The climber for boarding the airship. Can be null.
-	 */
-	@Nullable
-	private final ClimberCurrentLimited climber;
-
-	/**
-	 * The multiSubsystem for shooting fuel. Can be null.
-	 */
-	@Nullable
-	private final LoggingShooter shooter;
-
-	/**
-	 * The cameras on this robot. Can be null.
-	 */
-	@Nullable
-	private final CameraNetwork camera;
-
-	/**
 	 * The intake for picking up and agitating balls. Can be null.
 	 */
 	@Nullable
@@ -107,27 +89,6 @@ public class RobotMap {
 	 */
 	@Nullable
 	private final MappedDigitalInput locationDial;
-
-	/**
-	 * The command to run in autonomous on the boiler side of the field. Can be null if doMP is false or testMP is true,
-	 * but otherwise must have a value.
-	 */
-	@Nullable
-	private final Command boilerAuto;
-
-	/**
-	 * The command to run in autonomous on the center of the field. Can be null if doMP is false or testMP is true, but
-	 * otherwise must have a value.
-	 */
-	@Nullable
-	private final Command centerAuto;
-
-	/**
-	 * The command to run in autonomous on the feeding station side of the field. Can be null if doMP is false or testMP
-	 * is true, but otherwise must have a value.
-	 */
-	@Nullable
-	private final Command feederAuto;
 
 	/**
 	 * The profile for the left side of the drive to run in test mode. Can be null if either testMP or doMP are false,
@@ -265,18 +226,11 @@ public class RobotMap {
 		this.buttons = buttons != null ? buttons : new ArrayList<>();
 		this.oi = oi;
 		this.drive = drive;
-		this.climber = climber;
-		this.shooter = shooter;
-		this.camera = camera;
-		this.intake = intake;
 		this.pneumatics = pneumatics;
 		this.logger = logger;
 		this.RIOduinoPort = RIOduinoPort;
 		this.allianceSwitch = allianceSwitch;
 		this.locationDial = locationDial;
-		this.boilerAuto = boilerAuto != null ? boilerAuto.getCommand() : null;
-		this.centerAuto = centerAuto != null ? centerAuto.getCommand() : null;
-		this.feederAuto = feederAuto != null ? feederAuto.getCommand() : null;
 		this.leftTestProfile = leftTestProfile;
 		this.rightTestProfile = rightTestProfile;
 		this.leftProfiles = leftProfiles;
