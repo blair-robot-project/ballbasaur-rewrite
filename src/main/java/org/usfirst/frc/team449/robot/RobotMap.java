@@ -74,7 +74,6 @@ public class RobotMap {
 	private final Pneumatics pneumatics;
 
 
-
 	/**
 	 * The I2C port of the RIOduino plugged into this robot. Can be null.
 	 */
@@ -87,13 +86,6 @@ public class RobotMap {
 	 */
 	@Nullable
 	private final MappedDigitalInput allianceSwitch;
-
-	/**
-	 * The switch for deciding whether or not to drop the gear. Can be null if doMP is false or testMP is true, but
-	 * otherwise must have a value.
-	 */
-	@Nullable
-	private final MappedDigitalInput dropGearSwitch;
 
 	/**
 	 * The dial for selecting which side of the field the robot is on. Can be null if doMP is false or testMP is true,
@@ -133,25 +125,12 @@ public class RobotMap {
 	 * @param drive                The drive.
 	 * @param defaultDriveCommand  The command for the drive to run during the teleoperated period.
 	 * @param updater              A runnable that updates cached variables.
-	 * @param climber              The climber for boarding the airship. Can be null.
-	 * @param shooter              The multiSubsystem for shooting fuel. Can be null.
-	 * @param camera               The cameras on this robot. Can be null.
-	 * @param intake               The intake for picking up and agitating balls. Can be null.
 	 * @param pneumatics           The pneumatics on this robot. Can be null.
-	 * @param gearHandler          The gear handler on this robot. Can be null.
 	 * @param RIOduinoPort         The I2C port of the RIOduino plugged into this robot. Can be null.
 	 * @param allianceSwitch       The switch for selecting which alliance we're on. Can be null if doMP is false or
 	 *                             testMP is true, but otherwise must have a value.
-	 * @param dropGearSwitch       The switch for deciding whether or not to drop the gear. Can be null if doMP is false
-	 *                             or testMP is true, but otherwise must have a value.
 	 * @param locationDial         The dial for selecting which side of the field the robot is on. Can be null if doMP
 	 *                             is false or testMP is true, but otherwise must have a value.
-	 * @param boilerAuto           The command to run in autonomous on the boiler side of the field. Can be null if doMP
-	 *                             is false or testMP is true, but otherwise must have a value.
-	 * @param centerAuto           The command to run in autonomous on the center of the field. Can be null if doMP is
-	 *                             false or testMP is true, but otherwise must have a value.
-	 * @param feederAuto           The command to run in autonomous on the feeding station side of the field. Can be
-	 *                             null if doMP is false or testMP is true, but otherwise must have a value.
 	 * @param leftTestProfile      The profile for the left side of the drive to run in test mode. Can be null if either
 	 *                             testMP or doMP are false, but otherwise must have a value.
 	 * @param rightTestProfile     The profile for the right side of the drive to run in test mode. Can be null if
@@ -162,9 +141,6 @@ public class RobotMap {
 	 * @param rightProfiles        The starting position to peg profiles for the right side. Should have options for
 	 *                             "red_right", "red_center", "red_left", "blue_right", "blue_center", and "blue_left".
 	 *                             Can be null if doMP is false or testMP is true, but otherwise must have a value.
-	 * @param nonMPAutoCommand     The command to run during autonomous if doMP is false. Can be null, and if it is, no
-	 *                             command is run during autonomous.
-	 * @param autoStartupCommand   The command to be run when first enabled in autonomous mode.
 	 * @param teleopStartupCommand The command to be run when first enabled in teleoperated mode.
 	 * @param startupCommand       The command to be run when first enabled.
 	 * @param testMP               Whether to run the test or real motion profile during autonomous. Defaults to false.
@@ -177,23 +153,13 @@ public class RobotMap {
 	                    @NotNull @JsonProperty(required = true) DriveTalonCluster drive,
 	                    @NotNull @JsonProperty(required = true) YamlCommand defaultDriveCommand,
 	                    @NotNull @JsonProperty(required = true) MappedRunnable updater,
-	                    @Nullable ClimberCurrentLimited climber,
-	                    @Nullable LoggingFlywheel shooter,
-	                    @Nullable CameraNetwork camera,
 	                    @Nullable IntakeFixedAndActuated intake,
 	                    @Nullable Pneumatics pneumatics,
-	                    @Nullable SolenoidSimple gearHandler,
 	                    @Nullable Integer RIOduinoPort,
 	                    @Nullable MappedDigitalInput allianceSwitch,
-	                    @Nullable MappedDigitalInput dropGearSwitch,
 	                    @Nullable MappedDigitalInput locationDial,
-	                    @Nullable YamlCommand boilerAuto,
-	                    @Nullable YamlCommand centerAuto,
-	                    @Nullable YamlCommand feederAuto,
 	                    @Nullable MotionProfileData leftTestProfile, @Nullable MotionProfileData rightTestProfile,
 	                    @Nullable Map<String, MotionProfileData> leftProfiles, @Nullable Map<String, MotionProfileData> rightProfiles,
-	                    @Nullable YamlCommand nonMPAutoCommand,
-	                    @Nullable YamlCommand autoStartupCommand,
 	                    @Nullable YamlCommand teleopStartupCommand,
 	                    @Nullable YamlCommand startupCommand,
 	                    boolean testMP,
@@ -206,7 +172,6 @@ public class RobotMap {
 		this.updater = updater;
 		this.RIOduinoPort = RIOduinoPort;
 		this.allianceSwitch = allianceSwitch;
-		this.dropGearSwitch = dropGearSwitch;
 		this.locationDial = locationDial;
 		this.defaultDriveCommand = defaultDriveCommand.getCommand();
 		this.teleopStartupCommand = teleopStartupCommand != null ? teleopStartupCommand.getCommand() : null;
@@ -278,15 +243,6 @@ public class RobotMap {
 	@Nullable
 	public MappedDigitalInput getAllianceSwitch() {
 		return allianceSwitch;
-	}
-
-	/**
-	 * @return The switch for deciding whether or not to drop the gear. Can be null if getDoMP returns false or
-	 * getTestMP returns true, but otherwise has a value.
-	 */
-	@Nullable
-	public MappedDigitalInput getDropGearSwitch() {
-		return dropGearSwitch;
 	}
 
 	/**
