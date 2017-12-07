@@ -13,7 +13,6 @@ import org.usfirst.frc.team449.robot.oi.OI;
 import org.usfirst.frc.team449.robot.oi.buttons.CommandButton;
 import org.usfirst.frc.team449.robot.other.Logger;
 import org.usfirst.frc.team449.robot.other.MotionProfileData;
-import org.usfirst.frc.team449.robot.subsystem.complex.climber.ClimberCurrentLimited;
 import org.usfirst.frc.team449.robot.subsystem.complex.intake.IntakeFixedAndActuated;
 import org.usfirst.frc.team449.robot.subsystem.complex.shooter.LoggingFlywheel;
 import org.usfirst.frc.team449.robot.subsystem.interfaces.solenoid.SolenoidSimple;
@@ -28,7 +27,6 @@ import java.util.Map;
  * The Jackson-compatible object representing the entire robot.
  */
 public class RobotMap {
-
 	/**
 	 * The buttons for controlling this robot.
 	 */
